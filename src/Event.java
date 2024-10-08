@@ -10,6 +10,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Timer;
 
@@ -111,3 +112,33 @@ class Typer implements Event {
     }
 }
 
+class GuessNum implements Event {
+
+    @Override
+    public void run(Player player) {
+
+        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
+
+        int min = 0;
+        int max = 5;
+        int target = random.nextInt(min, max+1);
+
+        System.out.format("Guess a number between %d and %d\n", min, max);
+        System.out.println("If you guess right, I will free that many Ugandan Knuckles");
+        int input = scanner.nextInt();
+
+        // validate input
+
+
+        if (input == target) {
+            System.out.println("A promise is a promise");
+            player.score += target;
+        } else {
+            System.out.println("You didn't save them :(");
+            System.out.format("It was %d", target);
+        }
+
+
+    }
+}
