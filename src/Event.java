@@ -10,6 +10,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Timer;
@@ -126,18 +127,22 @@ class GuessNum implements Event {
 
         System.out.format("Guess a number between %d and %d\n", min, max);
         System.out.println("If you guess right, I will free that many Ugandan Knuckles");
-        int input = scanner.nextInt();
+        try {
 
-        // validate input
+            int input = scanner.nextInt();
 
+            if (input == target) {
+                System.out.println("A promise is a promise");
+                player.score += target;
+            } else {
+                System.out.println("You didn't save them :(");
+                System.out.format("It was %d", target);
+            }
 
-        if (input == target) {
-            System.out.println("A promise is a promise");
-            player.score += target;
-        } else {
-            System.out.println("You didn't save them :(");
-            System.out.format("It was %d", target);
+        } catch (InputMismatchException e) {
+            System.out.println("For trying to be funny, no knuckles for you");
         }
+
 
 
     }
