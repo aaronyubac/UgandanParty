@@ -79,7 +79,7 @@ class Typer implements Event {
 
             if (in.ready()) {
                 if (in.readLine().equals(quote)) {
-                    System.out.println("yahoo");
+                    System.out.println("Yahoo +3 for you");
                     player.score+=3;
                 } else {
                     System.out.println("Looks like you made a mistake\n\n");
