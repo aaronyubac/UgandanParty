@@ -22,10 +22,6 @@ public class Game {
             players[i] = newPlayer;
         }
 
-        Tile tile = new Tile(new Typer());
-        tile.event.run(players[0]);
-
-
     }
 
     public void start() {
