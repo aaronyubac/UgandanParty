@@ -1,6 +1,8 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
@@ -39,9 +41,9 @@ class Typer implements Event {
 
     public void run (Player player) {
 
-        Scanner scanner = new Scanner(System.in);
-        // request random quote
+
         try {
+            // request random quote
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("https://api.api-ninjas.com/v1/quotes")).
                     headers("X-Api-Key", System.getenv("API_NINJAS_KEY"))
@@ -51,9 +53,6 @@ class Typer implements Event {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             String quote = parseQuote(response.body());
-
-            // create timer
-            // configure timer
 
             System.out.println("Type the quote before time runs out!!!");
 
@@ -65,19 +64,31 @@ class Typer implements Event {
             Thread.sleep(1000);
 
             System.out.println(quote);
-            String input = scanner.nextLine();
 
-            if (input.equals(quote)) {
-                System.out.println("yahoo");
-            } else {
-                System.out.println("you suck");
+
+            // timeout if past time limit
+            int timeLimit = quote.length()/5;
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            long startTime = System.currentTimeMillis();
+            while ((System.currentTimeMillis() - startTime) < timeLimit * 1000L
+                    && !in.ready()) {
             }
 
-            // or submits when timer is over
+            if (in.ready()) {
+                if (in.readLine().equals(quote)) {
+                    System.out.println("yahoo");
+                    player.score+=3;
+                } else {
+                    System.out.println("Looks like you made a mistake\n\n");
+                }
+            } else {
+                System.out.println("\nYou're too slow!!!'");
+            }
 
-            // compare submission with str
-            // if 80% correct 1 point
-            // if 100% correct 3 points
+            Thread.sleep(5000);
+
+
 
 
         } catch (Exception e) {
