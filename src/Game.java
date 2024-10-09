@@ -17,6 +17,7 @@ public class Game {
         // Initialize players starting at beginning
         for (int i = 0; i < playerCount; i++) {
             Player newPlayer = new Player();
+            newPlayer.playNo = i+1;
             newPlayer.position = board.head;
 
             players[i] = newPlayer;
@@ -29,8 +30,16 @@ public class Game {
         for (int i = 1; i <= rounds; i++) {
 
             for (Player player : players) {
-                player.roll();
+
+                System.out.printf("Round %d/%d\n", i, rounds);
+                player.optionMenu();
+
+
+
             }
+
+
+            // display score after round
 
         }
 

@@ -88,8 +88,6 @@ class Typer implements Event {
                 System.out.println("\nYou're too slow!!!'");
             }
 
-            Thread.sleep(5000);
-
 
 
 
