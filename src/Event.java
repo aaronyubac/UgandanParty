@@ -4,9 +4,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -50,13 +48,15 @@ class Typer implements Event {
 
         try {
             // request random quote
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("https://api.api-ninjas.com/v1/quotes")).
-                    headers("X-Api-Key", System.getenv("API_NINJAS_KEY"))
-                    .timeout(Duration.of(5, SECONDS))
-                    .build();
+            HttpResponse<String> response;
+            try (HttpClient client = HttpClient.newHttpClient()) {
+                HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("https://api.api-ninjas.com/v1/quotes")).
+                        headers("X-Api-Key", System.getenv("API_NINJAS_KEY"))
+                        .timeout(Duration.of(5, SECONDS))
+                        .build();
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            }
 
             String quote = parseQuote(response.body());
 
@@ -193,7 +193,6 @@ class WordJumble implements Event {
 
 
         Random random = new Random();
-        Scanner scanner = new Scanner(System.in);
         int timeLimit = 10;
 
         String givenWord = wordCache.get(random.nextInt(0, wordCache.size()));

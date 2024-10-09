@@ -1,7 +1,3 @@
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.Arrays;
-
 public class Game {
 
     private final Board board;
@@ -23,7 +19,7 @@ public class Game {
             players[i] = newPlayer;
         }
 
-        WordJumble wordJumble = new WordJumble();
+        Event wordJumble = new Typer();
         wordJumble.run(players[0]);
 
     }
