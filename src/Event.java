@@ -43,6 +43,12 @@ class Typer implements Event {
 
     public void run (Player player) {
 
+        String gameName = "TYPER";
+
+        System.out.println("-".repeat(100));
+        System.out.println(" ".repeat(50 - gameName.length()) + gameName);
+        System.out.println("-".repeat(100));
+
 
         try {
             // request random quote
@@ -57,6 +63,7 @@ class Typer implements Event {
             String quote = parseQuote(response.body());
 
             System.out.println("Type the quote before time runs out!!!");
+            Thread.sleep(2000);
 
             System.out.println(3);
             Thread.sleep(1000);
@@ -111,10 +118,16 @@ class Typer implements Event {
     }
 }
 
-class GuessNum implements Event {
+class GuessThatNum implements Event {
 
     @Override
     public void run(Player player) {
+
+        String gameName = "GUESS THAT NUMBER";
+
+        System.out.println("-".repeat(100));
+        System.out.println(" ".repeat(50 - gameName.length()) + gameName);
+        System.out.println("-".repeat(100));
 
         Random random = new Random();
         Scanner scanner = new Scanner(System.in);
@@ -134,7 +147,7 @@ class GuessNum implements Event {
                 player.score += target;
             } else {
                 System.out.println("You didn't save them :(");
-                System.out.format("It was %d", target);
+                System.out.format("It was %d\n\n", target);
             }
 
         } catch (InputMismatchException e) {

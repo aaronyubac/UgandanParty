@@ -9,7 +9,7 @@ public class Board {
 
         // create 39 tiles
         for (int i = 0; i < 39; i++) {
-            Tile newTile = new Tile(new Nothing());
+            Tile newTile = new Tile(new GuessThatNum());
 
             current.next = newTile;
             current = current.next;

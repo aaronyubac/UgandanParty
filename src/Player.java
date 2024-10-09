@@ -32,6 +32,7 @@ public class Player {
             }
         }
 
+        // "player moving"
         Thread.sleep(3000);
         System.out.println();
 
@@ -42,7 +43,6 @@ public class Player {
         }
 
         Thread.sleep(3000);
-        System.out.println();
 
 
 
