@@ -19,9 +19,6 @@ public class Game {
             players[i] = newPlayer;
         }
 
-        Event wordJumble = new Typer();
-        wordJumble.run(players[0]);
-
     }
 
     public void start() {
