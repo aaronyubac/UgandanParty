@@ -182,7 +182,16 @@ class WordJumble implements Event {
         Scanner scanner = new Scanner(System.in);
         int timeLimit = 10;
 
-        String word = wordCache.get(random.nextInt(0, wordCache.size()));
+        String givenWord = wordCache.get(random.nextInt(0, wordCache.size()));
+
+        // Make a Hashmap for the given word to keep track of character frequency
+        HashMap<Character, Integer> wordMap = new HashMap<>();
+
+        for (int i = 0; i < givenWord.length(); i++) {
+            char current = givenWord.charAt(i);
+
+            wordMap.put(current, wordMap.getOrDefault(current, 0) + 1);
+        }
 
         try {
             System.out.println("An anagram is a word or phrase that's formed by rearranging the letters of another word or phrase");
@@ -190,13 +199,12 @@ class WordJumble implements Event {
 
             System.out.println("Example: gum and mug");
             Thread.sleep(3000);
-            System.out.println("Find an anagram for " + word);
-            Thread.sleep(3000);
-            System.out.printf("You have %d seconds", timeLimit);
+            System.out.printf("Find an anagram for \"%s\"\n", givenWord);
+            Thread.sleep(1000);
+            System.out.printf("You have %d seconds\n", timeLimit);
 
 
             // timeout if past time limit
-
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             long startTime = System.currentTimeMillis();
             while ((System.currentTimeMillis() - startTime) < timeLimit * 1000
@@ -204,12 +212,40 @@ class WordJumble implements Event {
             }
 
             if (in.ready()) {
+
+                String input = in.readLine();
                 // check if valid anagram
-                System.out.println("Guau");
-                player.score += 3;
+                if (input.length() != givenWord.length()) {
+                    // not an anagram
+                    System.out.println("\n(͡ ° ͜ʖ ͡ °)");
+                    System.out.println("\"Nice try\"\n");
+                    return;
+                }
+
+                // Make a Hashmap for the input to keep track of character frequency
+
+                HashMap<Character, Integer> inputMap = new HashMap<>();
+                for (int i = 0; i < input.length(); i++) {
+                    char current = input.charAt(i);
+
+                    inputMap.put(current, inputMap.getOrDefault(current, 0) + 1);
+
+                }
+
+                if (inputMap.equals(wordMap)) {
+                    // pass
+                    System.out.println("Guau");
+                    player.score += 3;
+                } else {
+                    // not an anagram
+                    System.out.println("\n(͡ ° ͜ʖ ͡ °)");
+                    System.out.println("\"Nice try\"\n");
+                }
+
+
             } else {
-                System.out.println("(͡ ° ͜ʖ ͡ °)");
-                System.out.println("\"Nice try\"\n");
+
+                System.out.println("\nYou didn't even try");
             }
         } catch (Exception e) {
             e.printStackTrace();
