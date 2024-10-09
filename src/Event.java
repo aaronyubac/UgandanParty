@@ -13,6 +13,10 @@ import java.util.*;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
 
+/**
+ *     Event: An event is what occurs when a player lands on the tile.
+ *                                          *Every tile has an Event.
+ */
 public interface Event {
 
     void run(Player player);
