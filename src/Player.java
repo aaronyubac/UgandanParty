@@ -42,8 +42,9 @@ public class Player {
             position.event.run(this);
         }
 
+        System.out.println();
+        System.out.println();
         Thread.sleep(3000);
-
 
 
     }
@@ -52,10 +53,11 @@ public class Player {
 
         String menu = """
                 *********************************************************************************
+                                                    OPTIONS
                 1 - Roll
-                2 - Display scores
                 *********************************************************************************
                 """;
+
 
         System.out.printf("Player %d\n", playNo);
         System.out.println(menu);
@@ -68,8 +70,6 @@ public class Player {
                 case 1:
                     this.roll();
                     break;
-                case 2:
-                    System.out.println("Display scores");
                 default:
                     optionMenu();
             }

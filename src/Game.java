@@ -27,15 +27,27 @@ public class Game {
 
             for (Player player : players) {
 
+                // display scoreboard
+                for(Player current : players) {
+                    System.out.format("%s%10d\n", "Player " + current.playNo, current.score);
+                }
+
+
+                try {
+                    Thread.sleep(4000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // Option menu
+                System.out.println("-".repeat(150));
+
                 System.out.printf("Round %d/%d\n", i, rounds);
                 player.optionMenu();
 
 
-
             }
 
-
-            // display score after round
 
         }
 
