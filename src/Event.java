@@ -2,6 +2,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -10,10 +11,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.InputMismatchException;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.Timer;
+import java.util.*;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
 
@@ -93,6 +91,8 @@ class Typer implements Event {
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // give points if can't fetch from api
         }
 
 
@@ -113,11 +113,11 @@ class Typer implements Event {
 
 class GuessNum implements Event {
 
+    Random random = new Random();
+    Scanner scanner = new Scanner(System.in);
+
     @Override
     public void run(Player player) {
-
-        Random random = new Random();
-        Scanner scanner = new Scanner(System.in);
 
         int min = 0;
         int max = 5;
@@ -143,5 +143,76 @@ class GuessNum implements Event {
 
 
 
+    }
+}
+
+class WordJumble implements Event {
+
+    ArrayList<String> wordCache;
+
+
+    public WordJumble() {
+        wordCache = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader("anagrams.txt");
+            BufferedReader reader = new BufferedReader(fileReader);
+
+            String word;
+            while ((word = reader.readLine()) != null) {
+
+                wordCache.add(word);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void run(Player player) {
+
+        String gameName = "WORD JUMBLE";
+
+        System.out.println("-".repeat(100));
+        System.out.println(" ".repeat(50 - gameName.length()) + gameName);
+        System.out.println("-".repeat(100));
+
+
+        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
+        int timeLimit = 10;
+
+        String word = wordCache.get(random.nextInt(0, wordCache.size()));
+
+        try {
+            System.out.println("An anagram is a word or phrase that's formed by rearranging the letters of another word or phrase");
+            Thread.sleep(4000);
+
+            System.out.println("Example: gum and mug");
+            Thread.sleep(3000);
+            System.out.println("Find an anagram for " + word);
+            Thread.sleep(3000);
+            System.out.printf("You have %d seconds", timeLimit);
+
+
+            // timeout if past time limit
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            long startTime = System.currentTimeMillis();
+            while ((System.currentTimeMillis() - startTime) < timeLimit * 1000
+                    && !in.ready()) {
+            }
+
+            if (in.ready()) {
+                // check if valid anagram
+                System.out.println("Guau");
+                player.score += 3;
+            } else {
+                System.out.println("(͡ ° ͜ʖ ͡ °)");
+                System.out.println("\"Nice try\"\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

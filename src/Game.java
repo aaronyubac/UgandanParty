@@ -23,6 +23,9 @@ public class Game {
             players[i] = newPlayer;
         }
 
+        WordJumble wordJumble = new WordJumble();
+        wordJumble.run(players[0]);
+
     }
 
     public void start() {
