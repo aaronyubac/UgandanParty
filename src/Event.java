@@ -137,7 +137,7 @@ class GuessThatNum implements Event {
         System.out.println(" ".repeat(50 - gameName.length()) + gameName);
         System.out.println("-".repeat(100));
 
-        int min = 0;
+        int min = 1;
         int max = 5;
         int target = random.nextInt(min, max+1);
 
