@@ -20,6 +20,19 @@ public class Player {
         int rolled = rand.nextInt((max-min) + 1) + min;
         System.out.println("You rolled a " + rolled);
         Thread.sleep(1000);
+
+        // traverse tiles and execute events
+        this.move(rolled);
+
+        System.out.println();
+        System.out.println();
+        Thread.sleep(3000);
+
+
+    }
+
+    private void move(int rolled) throws InterruptedException {
+
         System.out.printf("Player %d is on the move\n", this.playNo);
 
         // traverse tiles "rolled" times
@@ -41,12 +54,6 @@ public class Player {
         if (!(position.event instanceof Beginning)) {
             position.event.run(this);
         }
-
-        System.out.println();
-        System.out.println();
-        Thread.sleep(3000);
-
-
     }
 
     public void optionMenu() {
@@ -73,9 +80,11 @@ public class Player {
                 default:
                     optionMenu();
             }
-        } catch (InputMismatchException | InterruptedException e) {
+        } catch (InputMismatchException e) {
             System.out.println("Enter a valid input");
             optionMenu();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

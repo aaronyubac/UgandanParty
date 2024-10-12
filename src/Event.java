@@ -104,6 +104,9 @@ class Typer implements Event {
             e.printStackTrace();
 
             // give points if can't fetch from api
+            System.out.println("Some thing went wrong");
+            System.out.println("I guess I'll give you some knuckles");
+            player.score += 3;
         }
 
 

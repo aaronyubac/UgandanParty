@@ -15,7 +15,7 @@ public class Board {
         GuessThatNum guessThatNum = new GuessThatNum();
         WordJumble wordJumble = new WordJumble();
 
-        Event[] events = {beginning, nothing, guessThatNum, wordJumble};
+        Event[] events = {beginning, nothing, typer, guessThatNum, wordJumble};
 
         // create start tile
         this.head = new Tile(beginning);
