@@ -18,7 +18,6 @@ public class Game {
 
             players[i] = newPlayer;
         }
-
     }
 
     public void start() {

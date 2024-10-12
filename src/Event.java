@@ -1,9 +1,7 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -104,9 +102,6 @@ class Typer implements Event {
             e.printStackTrace();
 
             // give points if can't fetch from api
-            System.out.println("Some thing went wrong");
-            System.out.println("I guess I'll give you some knuckles");
-            player.score += 3;
         }
 
 
@@ -175,8 +170,10 @@ class WordJumble implements Event {
     public WordJumble() {
         wordCache = new ArrayList<>();
         try {
-            FileReader fileReader = new FileReader("anagrams.txt");
-            BufferedReader reader = new BufferedReader(fileReader);
+//            FileReader fileReader = new FileReader("anagrams.txt");
+//            BufferedReader reader = new BufferedReader(fileReader);
+            InputStream stream = getClass().getResourceAsStream("/anagrams.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
             String word;
             while ((word = reader.readLine()) != null) {
