@@ -20,7 +20,7 @@ public class Game {
         }
     }
 
-    public void start() throws InterruptedException {
+    public void start() {
 
         for (int i = 1; i <= rounds; i++) {
 
@@ -50,11 +50,19 @@ public class Game {
 
         }
 
-        Thread.sleep(2000);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         System.out.println("GAME OVER");
         System.out.println("And the winner is..");
-        Thread.sleep(3000);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         // set winner
         Player highestScorer = players[0];
